@@ -1,0 +1,129 @@
+MERGE
+
+1)
+git status
+
+Sur la branche master
+
+Aucun commit
+
+2)
+git switch -c develop 
+echo "# TP2 : Gestion des branches" >README.md
+git status
+git add README.md
+git status
+git commit -m "ajout d'un fichier README.md"
+
+3)
+git switch -c feature1
+ls
+echo "Ceci est une description du projet" >> README.md
+git status
+git add README.md
+git status
+git commit -m "ajout de la deuxième ligne: Ceci est une description du projet"
+git status
+
+4)
+git switch develop
+echo "Modification sur develop avant merge de f1" >>README.md
+git status
+git add .
+git commit -m "ajout de la ligne: Modification sur develop avant merge de f1
+"
+git merge feature1
+
+Conflit de fusion dans README.md car il y a une modification à la même ligne dans la branche develop et feature1
+
+on règle le conflit à la main puis: git add README.md 
+git commit -m "conflit régler fusion des branches develop et feature1"
+
+5)
+ git switch -c feature2
+ls
+modification du titre à la main
+git status
+git add .
+git commit -m "modification du titre de README.md : # TP2 - NGUIMGONGUETSAPARCHEMAL - Gestion des branches"
+git status
+
+6)
+git switch develop
+git switch -c feature3
+git status
+git add .
+git commit -m "modification du titre de README.md de la branche feature3: # TP2 : Gestion des branches et fusions"
+
+7)
+git switch develop
+git merge feature2 réussi donc on fait
+git add .
+git commit -m "fusion de la branche develop et feature2"
+git merge feature3 en attente de régler le conflit
+git status
+
+8)
+On corrige à la main puis 
+git add . 
+git commit -m "fusion de develop et de feature3 en gardant le README.md de feature3"
+git status
+
+REBASE
+
+1)
+git switch develop
+echo "Cette phrase concerne la partie rebase du TP2">> README.md
+et modification à la main de la description
+git add README.md
+git commit -m "Ajout dans README.md - partie rebase"
+git status
+
+2)
+modification à la main
+git add README.md
+git commit -m "Ajout dans README.md -mention feature4"
+
+3)
+echo "Fin des modifications de la feature4" >> README.md
+git status
+git add .
+git commit -m "Ajout dans README.md - derniere ligne feature4"
+git status
+
+4)
+git rebase -i HEAD~3
+j'ai squash les anciens commits et le 1er je l'ai laissé en pick
+et j'ai commenté tout les commits sauf le 1er il reste uniquement un seul commit qui est le 1er " git log --oneline
+e0155a4 (HEAD -> feature4) Ajout dans README.md - partie rebase"
+
+5)
+git switch develop
+modification à la main du fichier README.md
+git status
+git add .
+git commit -m "modification du titre du Fichier README.md par # TP2 - Branches, merge et rebase - NGUIMGONGUETSAParchemal"
+
+6)
+git rebase feature4
+aucun conflit à régler
+git status
+
+7)
+la commande merge sert à fusionner 2 branches, si les fichiers ont été modifiées aux mêmes endroit il faut régler le conflit avant de pouvoir fusionner les branches, donc sur la branche où l'on a fait la fusion, on aura toutes les modifications de l'autre branche.
+
+8)
+La commande rebase sert à réécrire l'histoire en modifiant notamment les commits, les fusionner ce qui donne un rendu plus propre que avec git merge (il faut aussi régler les conflits s'il y en a)? Il nous a été utilise pour mettre à jour la branche develop à partir de feature 4 tout en gardant nos anciennes modif qui avaient été faits dans dévelop et nettoyer l'historique des commits de feature4.
+
+9)
+git push -f origin develop
+
+10) schéma à regarder dans le fichier de dépôt Moodle (en dessous du lien)
+
+
+
+
+
+
+
+
